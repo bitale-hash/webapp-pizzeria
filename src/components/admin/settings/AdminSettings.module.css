@@ -1,0 +1,265 @@
+.container {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  color: #fff;
+}
+
+.title {
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: #94a3b8;
+  margin-bottom: 2rem;
+}
+
+.loadingContainer {
+  padding: 3rem;
+  text-align: center;
+  color: #94a3b8;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.cardBox {
+  background: #1e293b;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #334155;
+}
+
+.cardTitle {
+  margin-bottom: 1rem;
+  color: #f8fafc;
+}
+
+.cardHeaderFlex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #334155;
+  padding-bottom: 0.5rem;
+}
+
+.dayScheduleRow {
+  margin-bottom: 1.2rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid #334155;
+}
+
+.dayLabel {
+  font-weight: bold;
+  color: #f1f5f9;
+  font-size: 1.05rem;
+  display: block;
+  margin-bottom: 0.6rem;
+}
+
+.shiftsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.shiftBox {
+  background: #0f172a;
+  padding: 0.75rem;
+  border: 1px solid #334155;
+}
+
+.shiftLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #f1f5f9;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+.checkboxInput {
+  width: 16px;
+  height: 16px;
+  accent-color: #2563eb;
+}
+
+.timeInputsContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.timeInput {
+  padding: 0.3rem;
+  background: #1e293b;
+  border: 1px solid #475569;
+  color: #fff;
+  width: 100%;
+}
+
+.timeSeparator {
+  color: #64748b;
+}
+
+.addOvenButton {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.ovensListContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.ovenRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #0f172a;
+  padding: 0.75rem 1rem;
+  border: 1px solid #334155;
+}
+
+.ovenTitle {
+  font-weight: 500;
+  color: #f1f5f9;
+}
+
+.ovenControls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ovenCapacityLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.ovenCapacityInput {
+  width: 80px;
+  padding: 0.4rem;
+  background: #1e293b;
+  border: 1px solid #475569;
+  color: #fff;
+  text-align: center;
+}
+
+.deleteOvenButton {
+  background: #dc2626;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.6rem;
+  cursor: pointer;
+}
+
+.saveButton {
+  padding: 0.75rem 1.5rem;
+  background: #16a34a;
+  color: #fff;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.saveButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* --- Nuove classi per CompletedOrdersCleanupCard --- */
+
+.cleanupCardBox {
+  background-color: #1e293b;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-top: 1.5rem;
+  border: 1px solid #334155;
+}
+
+.cleanupTitle {
+  color: #f97316;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.cleanupDescription {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.cleanupRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cleanupLabel {
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.cleanupInput {
+  background-color: #0f172a;
+  color: #fff;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  padding: 0.5rem 0.8rem;
+  width: 100px;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.cleanupUnit {
+  color: #cbd5e1;
+  font-size: 0.95rem;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.inputField {
+  padding: 0.4rem;
+  background: #0f172a;
+  border: 1px solid #475569;
+  color: #fff;
+  width: 100%;
+}
+
+.selectField {
+  padding: 0.4rem 0.6rem;
+  background: #1e293b;
+  border: 1px solid #475569;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.sectionSubTitle {
+  font-size: 1.1rem;
+  color: #f1f5f9;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  border-top: 1px solid #334155;
+  padding-top: 1rem;
+}

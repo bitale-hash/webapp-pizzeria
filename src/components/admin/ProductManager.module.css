@@ -1,0 +1,119 @@
+.container {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+}
+
+.title {
+  font-size: 1.1rem;
+  color: #f97316;
+  margin-bottom: 1rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.select,
+.input {
+  padding: 0.5rem;
+  background: #020617;
+  border: 1px solid #334155;
+  color: #fff;
+  border-radius: 0.375rem;
+  width: 100%;
+}
+
+.label {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  display: block;
+  margin-top: 0.2rem;
+}
+
+.fileInput {
+  padding: 0.4rem;
+  background: #020617;
+  border: 1px solid #334155;
+  color: #fff;
+  border-radius: 0.375rem;
+  font-size: 0.8rem;
+  width: 100%;
+}
+
+.ingredientsLabel {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.ingredientsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  max-height: 140px;
+  overflow-y: auto;
+   
+}
+
+.ingredientItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #020617;
+  padding: 0.35rem 0.6rem;
+  border-radius: 0.375rem;
+  border: 1px solid #1e293b;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.ingredientSelected {
+  background: #1e293b;
+  border-color: #f97316;
+}
+ 
+.ingredientSpecial {
+  border-color: #f59e0b;
+  background-color: rgba(245, 158, 11, 0.08);
+}
+
+.specialBadge {
+  color: #f59e0b;
+  font-weight: bold;
+  margin-left: 6px;
+}
+
+.ingredientText {
+  color: #fff;
+}
+
+.inStock {
+  font-size: 0.7rem;
+  color: #4ade80;
+}
+
+.outOfStock {
+  font-size: 0.7rem;
+  color: #ef4444;
+}
+
+.submitButton {
+  background: #f97316;
+  color: #fff;
+  border: none;
+  padding: 0.6rem;
+  border-radius: 0.375rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.submitButton:hover {
+  filter: brightness(1.1);
+}

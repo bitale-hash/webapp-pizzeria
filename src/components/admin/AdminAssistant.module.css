@@ -1,0 +1,154 @@
+.assistantContainer {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.floatingBtn {
+  background-color: #f97316;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 0.8rem 1.2rem;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  transition: transform 0.2s ease;
+}
+
+.floatingBtn:hover {
+  transform: scale(1.05);
+}
+
+.chatWindow {
+  width: 360px;
+  height: 500px;
+  background-color: #1e293b;
+  border-radius: 16px;
+  border: 1px solid #475569;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chatHeader {
+  background-color: #0f172a;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #334155;
+}
+
+.chatTitle {
+  color: #fff;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.messagesContainer {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.message {
+  padding: 0.7rem 1rem;
+  border-radius: 12px;
+  max-width: 85%;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: #fff;
+  white-space: pre-line;
+}
+
+.userMessage {
+  align-self: flex-end;
+  background-color: #f97316;
+}
+
+.aiMessage {
+  align-self: flex-start;
+  background-color: #334155;
+}
+
+.loadingText {
+  align-self: flex-start;
+  color: #94a3b8;
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.suggestionsContainer {
+  padding: 0.5rem 0.8rem;
+  display: flex;
+  gap: 0.4rem;
+  overflow-x: auto;
+  background-color: #0f172a;
+  border-top: 1px solid #334155;
+}
+
+.suggestionChip {
+  background: #334155;
+  color: #cbd5e1;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.suggestionChip:hover {
+  background: #475569;
+}
+
+.inputContainer {
+  padding: 0.8rem;
+  background-color: #0f172a;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.inputField {
+  flex: 1;
+  background-color: #1e293b;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  padding: 0.5rem 0.8rem;
+  color: #fff;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.inputField:focus {
+  border-color: #f97316;
+}
+
+.sendBtn {
+  background-color: #f97316;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+  font-weight: bold;
+}

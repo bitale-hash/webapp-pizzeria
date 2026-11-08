@@ -1,0 +1,162 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  role         String   @default("cliente")
+  createdAt    DateTime @default(now()) @map("created_at")
+  @@map("users")
+}
+
+model Product {
+  id           Int                 @id @default(autoincrement())
+  name         String
+  description  String?
+  price        Decimal             @db.Decimal(5, 2)
+  categoryId   Int?                @map("category_id")
+  image_url    String?
+  position     Int?                @default(0)
+  orderItems   OrderItem[]
+  ingredients  ProductIngredient[]
+  category     Category?           @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  @@map("products")
+}
+
+model Order {
+  id              String      @id
+  customerName    String      @map("customer_name")
+  totalPrice      Decimal     @map("total_price") @db.Decimal(6, 2)
+  status          String      @default("pending")
+  createdAt       DateTime    @default(now()) @map("created_at")
+  pickupTime      String      @map("pickup_time")
+  orderType       String      @default("counter") @map("order_type") 
+  tableNumber     Int?     @map("table_number")                   
+  deliveryAddress String?     @map("delivery_address")               
+  items           OrderItem[]
+  covers          Int?     
+  @@map("orders")
+}
+
+model OrderItem {
+  id             Int      @id @default(autoincrement())
+  orderId        String   @map("order_id")
+  productId      Int?     @map("product_id")
+  categoryId     Int?     @map("category_id")
+  quantity       Int      @default(1)
+  unitPrice      Decimal  @map("unit_price") @db.Decimal(5, 2)
+  selectedExtras String?  @map("selected_extras")
+  selectedExtrasIds String? @map("selected_extras_ids")
+  notes          String?
+  order          Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product        Product? @relation(fields: [productId], references: [id])
+  @@map("order_items")
+}
+
+model Setting {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  value     String
+  updatedAt DateTime @default(now()) @map("updated_at")
+  @@map("settings")
+}
+
+model RestaurantInfo {
+  id                 Int      @id @default(autoincrement())
+  restaurantName     String   @map("restaurant_name")
+  address            String?  @map("address")
+  phone              String?  @map("phone")
+  email              String?  @map("email")
+  title              String?  @map("title")
+  subtitle           String?  @map("subtitle")
+  description        String?  @map("description")
+  presentationImage  String?  @map("presentation_image")
+  footerLogo         String?  @map("footer_logo")
+  facebook           String?  @map("facebook")
+  instagram          String?  @map("instagram")
+  whatsapp           String?  @map("whatsapp")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+  bookingBgImage     String?  @map("booking_bg_image")
+  bookingDescription String?  @map("booking_description")
+  bookingTitle       String?  @map("booking_title")
+
+  @@map("restaurant_info")
+}
+
+model Ingredient {
+  id          Int                 @id @default(autoincrement())
+  name        String              @unique
+  pricePerKg  Decimal             @default(0.00) @map("price_per_kg") @db.Decimal(8, 2)
+  price       Decimal             @default(0.00) @db.Decimal(5, 2)
+  inStock     Boolean             @default(true) @map("in_stock")
+  isSpecial   Boolean             @default(false) 
+  products    ProductIngredient[]
+  categoryIngredients CategoryIngredient[]
+  @@map("ingredients")
+}
+
+model ProductIngredient {
+  productId    Int      @map("product_id")
+  ingredientId Int      @map("ingredient_id")
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
+  product      Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
+  @@id([productId, ingredientId])
+  @@map("product_ingredients")
+}
+
+model CategoryIngredient {
+  categoryId   Int        @map("category_id")
+  ingredientId Int        @map("ingredient_id")
+  quantity     Decimal    @default(0.00) @map("quantity") @db.Decimal(6, 2)
+  category     Category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
+
+  @@id([categoryId, ingredientId])
+  @@map("category_ingredients")
+}
+
+model ProductionDepartment {
+  id               Int        @id @default(autoincrement())
+  name             String     @unique @map("name")
+  maxCapacity      Int?       @map("max_capacity")       // 1) Quantità massima per ciclo
+  cycleTimeMinutes Int?       @map("cycle_time_minutes") // 2) Tempo totale per ciclo di produzione
+  fixedTimeMinutes Int?       @map("fixed_time_minutes") // 3) Tempo fisso di produzione (alternativo)
+  categories       Category[]
+
+  @@map("production_departments")
+}
+
+model Category {
+  id                    Int                   @id @default(autoincrement())
+  name                  String                @unique
+  hasIngredients        Boolean               @default(false)
+  slug                  String                @unique
+  position              Int?                  @default(0)
+  departmentId          Int?                  @map("department_id")
+  productionDepartment  ProductionDepartment? @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+  products              Product[]
+  categoryIngredients   CategoryIngredient[]
+  @@map("categories")
+}
+
+model calendar_exception {
+  id          Int      @id @default(autoincrement())
+  date        String   @unique // Formato "YYYY-MM-DD"
+  isClosed    Boolean  @default(false) // True se chiuso tutto il giorno
+  hasLunch    Boolean  @default(false) // True se aperto a pranzo
+  lunchOpen   String?  // Es. "12:00"
+  lunchClose  String?  // Es. "15:00"
+  hasDinner   Boolean  @default(false) // True se aperto a cena
+  dinnerOpen  String?  // Es. "19:00"
+  dinnerClose String?  // Es. "23:00"
+  reason      String?  // Motivazione (es. "Festività", "Ferie")
+  updatedAt   DateTime @updatedAt
+}

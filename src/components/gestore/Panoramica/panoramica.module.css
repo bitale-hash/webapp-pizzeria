@@ -1,0 +1,609 @@
+.pageWrapper {
+  padding: 2rem;
+  max-width: 1500px;
+  margin: 0 auto;
+  color: #f1f5f9;
+  background-color: #0b1120;
+  min-height: calc(100vh - 100px);
+}
+
+/* Griglia principale: Colonna sinistra grande, Colonna destra divisa */
+.dashboardLayout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+@media (max-width: 1024px) {
+  .dashboardLayout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* COLONNA SINISTRA: Controllo Ingredienti */
+.ingredientsSection {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid #334155;
+  padding-bottom: 0.75rem;
+}
+
+.sectionHeading {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.badgeCount {
+  background-color: #0f172a;
+  color: #38bdf8;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  border: 1px solid #334155;
+}
+
+.ingredientsListContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-height: 456px;
+  overflow-y: auto;
+  padding-right: 0.3rem;
+}
+
+/* Riga Ingrediente */
+.ingredientRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0f172a;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #334155;
+  border-left: 4px solid #10b981;
+  transition: all 0.2s ease;
+}
+
+.rowAvailable {
+  border-left-color: #10b981;
+}
+
+.rowUnavailable {
+  border-left-color: #ef4444;
+  opacity: 0.75;
+}
+
+.rowSpecial {
+  border-left-color: #f97316 !important; 
+}
+
+.ingredientInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.ingredientMainText {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #f8fafc;
+}
+
+.ingredientPrice {
+  color: #94a3b8;
+  font-weight: 400;
+  font-size: 0.85rem;
+}
+
+.subInfoLine {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+}
+
+.specialTag {
+  color: #fbbf24;
+  font-weight: 600;
+}
+
+.statusGreen {
+  color: #34d399;
+}
+
+.statusRed {
+  color: #f87171;
+}
+
+.toggleBtn {
+  padding: 0.45rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+
+.btnMakeUnavailable {
+  background-color: #dc2626;
+}
+.btnMakeUnavailable:hover {
+  background-color: #b91c1c;
+}
+
+.btnMakeAvailable {
+  background-color: #059669;
+}
+.btnMakeAvailable:hover {
+  background-color: #047857;
+}
+
+/* COLONNA DESTRA: Wrapper per i due box impilati */
+.rightColumnWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.rightCard {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.cardSubText {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  margin-top: 0.75rem;
+  line-height: 1.4;
+}
+
+/* Utility */
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  color: #fff;
+  gap: 1rem;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-left-color: #f97316;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.noDataText {
+  color: #94a3b8;
+  text-align: center;
+  padding: 2rem;
+  font-style: italic;
+}
+ 
+.categoryManagerSection {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.categoryManagerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #334155;
+  padding-bottom: 0.75rem;
+}
+
+.categoryManagerTitle {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin: 0;
+  color: #f8fafc;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.saveButton {
+  padding: 0.45rem 1rem;
+  font-size: 0.85rem;
+  font-weight: bold;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  color: white;
+  background-color: #059669;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.saveButton:hover {
+  background-color: #047857;
+}
+
+.saveButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.messageBoxSuccess {
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem; 
+  border: 1px solid #059669;
+  background-color: rgba(5, 150, 105, 0.2);
+  color: #34d399;
+}
+
+.messageBoxError {
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem; 
+  border: 1px solid #dc2626;
+  background-color: rgba(220, 38, 38, 0.2);
+  color: #f87171;
+}
+
+.categoryTabsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.categoryTabBtn {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  font-weight: bold;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  border: 1px solid #334155;
+  background-color: #0f172a;
+  color: #94a3b8;
+  transition: all 0.2s;
+}
+
+.categoryTabBtnActive {
+  border: 1px solid #38bdf8;
+  background-color: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+}
+
+.categoryContentBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 0.3rem;
+}
+
+.categorySubHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px dashed #334155;
+}
+
+.categoryRowItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0f172a;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #334155;
+  border-left: 4px solid #38bdf8;
+}
+
+.quantityInput {
+  width: 80px;
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  color: white;
+  border-radius: 0.375rem;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.85rem;
+  text-align: center;
+  font-weight: bold;
+  outline: none;
+}
+
+.quantityInput:focus {
+  border-color: #38bdf8;
+}
+
+.priceSpan {
+  color: #94a3b8;
+  font-weight: normal;
+  font-size: 0.85rem;
+}
+
+.subInfoLine {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+}
+
+.specialTag {
+  color: #fbbf24;
+  font-weight: bold;
+}
+
+.flexColumnGap {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.flexAlignCenter {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.categoryActiveStrong {
+  color: #f8fafc;
+}
+
+.totalCountBadge {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.unitLabel {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-weight: bold;
+}
+
+.periodSelectorContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.periodTabBtn {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  font-weight: bold;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  border: 1px solid #334155;
+  background-color: #0f172a;
+  color: #94a3b8;
+  transition: all 0.2s;
+}
+
+.periodTabBtnActive {
+  border: 1px solid #38bdf8;
+  background-color: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+}
+
+.revenueText {
+  font-weight: bold;
+  color: #34d399;
+  font-size: 0.9rem;
+}
+
+.financialGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.metricCard {
+  background-color: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.metricTitle {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+
+.metricValue {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #f8fafc;
+}
+
+.metricValueRevenue {
+  color: #38bdf8;
+}
+
+.metricValueCost {
+  color: #f87171;
+}
+
+.metricValueProfit {
+  color: #34d399;
+}
+
+.loadingContainerCustom {
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.consumptionDetailsRow {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.textRight {
+  text-align: right;
+}
+
+.boldText {
+  font-weight: bold;
+}
+
+.topListContainer {
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.topProductRow {
+  border-left: 4px solid var(--rank-border-color, #38bdf8);
+}
+
+.calendarWeekHeader {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.75rem;
+  text-align: center;
+  font-weight: bold;
+  color: #94a3b8;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.75rem;
+}
+
+.calendarEmptyCell {
+  padding: 15px;
+  opacity: 0.2;
+}
+
+.calendarCell {
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 95px;
+  transition: all 0.2s ease;
+}
+
+.calendarCell:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.15);
+}
+
+.calendarCellOpen {
+  background-color: #0f172a;
+  border: 1px solid #10b981;
+}
+
+.calendarCellClosed {
+  background-color: rgba(220, 38, 38, 0.15);
+  border: 1px solid #ef4444;
+}
+
+.calendarCellHeader {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 0.95rem;
+  color: #f8fafc;
+}
+
+.calendarCellShifts {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.calendarCellReason {
+  font-size: 0.65rem;
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.15);
+  padding: 2px 4px;
+  border-radius: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 4px;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.modalCard {
+  background-color: #1e293b;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  width: 420px;
+  border: 1px solid #334155;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

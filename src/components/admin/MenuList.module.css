@@ -1,0 +1,193 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.noCategories {
+  color: #94a3b8;
+}
+
+.categoryCard {
+  background-color: #1e293b;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #334155;
+  margin-bottom: 1.5rem;
+}
+
+.categoryHeader {
+  padding: 1.25rem 1.5rem;
+  background-color: #0f172a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.categoryTitle {
+  font-size: 1.25rem;
+  margin: 0;
+  color: #f8fafc;
+}
+
+.categoryCount {
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.categoryActions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.moveButton {
+  background: #334155;
+  border: none;
+  color: #fff;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.moveButton.disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.toggleText {
+  font-size: 0.9rem;
+  color: #f97316;
+  font-weight: bold;
+  margin-left: 0.5rem;
+}
+
+.motionWrapper {
+  overflow: hidden;
+}
+
+.productsContainer {
+  padding: 1.5rem;
+  border-top: 1px solid #334155;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.noProducts {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.productCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0f172a;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #1e293b;
+}
+
+.productInfoWrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+
+.productImage {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.productName {
+  color: #fff;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.productDescription {
+  color: #94a3b8;
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.ingredientsList {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.3rem;
+  flex-wrap: wrap;
+}
+
+.ingredientTag {
+  font-size: 0.75rem;
+  background: #334155;
+  color: #cbd5e1;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+}
+
+.productRightSection {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.productReorderButtons {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.smallMoveButton {
+  background: #1e293b;
+  border: none;
+  color: #fff;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.smallMoveButton.disabledSmall {
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+
+.productPrice {
+  color: #f97316;
+  font-weight: bold;
+  min-width: 60px;
+  text-align: right;
+}
+
+.deleteButton {
+  background: none;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.ingredientTag {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+.ingredientTagSpecial {
+  background-color: #f59e0b;
+  color: #000;
+  font-weight: bold;
+}
+
+.ingredientTagNormal {
+  background-color: #1e293b;
+  color: #cbd5e1;
+  font-weight: normal;
+}

@@ -1,0 +1,657 @@
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  width: 100%;
+  color: #fff;
+  position: relative;
+}
+ 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid #1e293b;
+  padding-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.headerFlex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #f97316;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: #94a3b8;
+  margin: 0;
+}
+
+.cartButton {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cartBadge {
+  background-color: #f97316;
+  color: #fff;
+  padding: 0.15rem 0.5rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+}
+
+.categoriesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.categoryCard {
+  background-color: #1e293b;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #334155;
+}
+
+.categoryHeader {
+  padding: 1.25rem 1.5rem;
+  background-color: #0f172a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.categoryTitle {
+  font-size: 1.5rem;
+  margin: 0;
+  color: #f8fafc;
+}
+
+.categoryBody {
+  padding: 1.5rem 2.5rem;
+}
+
+.categoryCount {
+  font-size: 1rem;
+  color: #64748b;
+}
+
+.categoryToggleText {
+  color: #f97316;
+  font-weight: bold;
+}
+
+.productsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 320px));
+  gap: 1.5rem;
+  justify-content: start;
+}
+
+.productCard {
+  background-color: #0f172a;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #1e293b;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 320px;  
+}
+
+.productImage {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.productImagePlaceholder {
+  width: 100%;
+  height: 180px;
+  background-color: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.productContent {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.productHeaderFlex {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.productName {
+  font-size: 1.15rem;
+  font-weight: bold;
+  color: #fff;
+  margin: 0;
+}
+
+.productPrice {
+  font-weight: bold;
+  color: #f97316;
+  font-size: 1.1rem;
+}
+
+.productDesc {
+  color: #94a3b8;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+  flex-grow: 1;
+}
+
+.productButton {
+  color: #fff;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-weight: bold;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  background-color: #f97316;
+}
+
+.productButton:hover {
+  opacity: 0.9;
+}
+
+/* Overlay Comune Modali */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(2, 6, 23, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+/* Stili Condivisi Modali (Customization & Cart) */
+.customModalCard {
+  max-width: 480px;
+  width: 90%;
+  padding: 1.5rem;
+  border-radius: 16px;
+  background-color: #0f172a;
+  border: 1px solid #1e293b;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+}
+
+.customModalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #1e293b;
+  padding-bottom: 0.75rem;
+}
+
+.customModalTitle {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #f97316;
+}
+
+.customCloseButton {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.2rem;
+}
+
+.customLabel {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #cbd5e1;
+  margin-bottom: 0.4rem;
+}
+
+.customTextarea {
+  width: 100%;
+  background-color: #020617;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+  color: #fff;
+  font-size: 0.875rem;
+  outline: none;
+}
+
+.customExtrasScrollContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-height: 42vh;
+  overflow-y: auto;
+  padding-right: 0.2rem;
+}
+
+.customQuantityBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #020617;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #1e293b;
+  margin-bottom: 1.25rem;
+}
+
+.customQuantityControls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.customQtyBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background-color: #334155;
+  color: #fff;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.customQtyNumber {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #fff;
+  min-width: 24px;
+  text-align: center;
+}
+
+.customActionButtonsRow {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.customSecondaryButton {
+  flex: 1;
+  background-color: #1e293b;
+  color: #fff;
+  border: 1px solid #334155;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+}
+
+.customPrimaryButton {
+  flex: 2;
+  background-color: #f97316;
+  color: #fff;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Stili specifici per gli Articoli all'interno del Carrello */
+.cartItemCard {
+  background-color: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.cartItemTopRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.cartItemName {
+  margin: 0;
+  font-size: 1rem;
+  color: #fff;
+  font-weight: bold;
+}
+
+.cartIngredientsWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin: 0.3rem 0;
+}
+
+.cartIngredientTag {
+  font-size: 0.75rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+}
+
+.cartIngredientSpecial {
+  background-color: #f59e0b;
+  color: #000;
+  font-weight: bold;
+}
+
+.cartIngredientNormal {
+  background-color: #1e293b;
+  color: #cbd5e1;
+  font-weight: normal;
+}
+
+.cartItemNotes {
+  margin: 0.2rem 0 0 0;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.cartItemExtras {
+  margin: 0.2rem 0 0 0;
+  font-size: 0.8rem;
+  color: #38bdf8;
+}
+
+.cartItemPrice {
+  font-weight: bold;
+  color: #f97316;
+  font-size: 1.05rem;
+}
+
+.cartItemBottomRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.4rem;
+  border-top: 1px dashed #1e293b;
+  width: 100%;
+}
+
+.cartRemoveBtn {
+  background: none;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.cartEmptyText {
+  text-align: center;
+  color: #94a3b8;
+  padding: 2rem 0;
+  margin: 0;
+}
+
+.cartFooterSection {
+  border-top: 1px solid #1e293b;
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+
+.cartTotalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.cartTotalLabel {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #cbd5e1;
+}
+
+.cartTotalValue {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #f97316;
+}
+
+.customBulletIndicator {
+  display: inline-block;
+  width: 14px;
+  text-align: center;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: #f97316;
+}
+
+.loadingMessage {
+  padding: 2rem;
+  text-align: center;
+  color: #fff;
+}
+
+.cartIcon {
+  font-size: 1.2rem;
+}
+
+.productCardUnavailable {
+  opacity: 0.6;
+}
+
+.productIngredientsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+}
+
+.productIngredientTag {
+  font-size: 0.75rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+}
+
+.productIngredientSpecial {
+  background-color: #f59e0b;
+  color: #000;
+  font-weight: bold;
+}
+
+.productIngredientNormal {
+  background-color: #334155;
+  color: #cbd5e1;
+  font-weight: normal;
+}
+
+.productButtonDisabled {
+  background-color: #475569 !important;
+  cursor: not-allowed !important;
+}
+
+/* Stili specifici per OrderConfirmationModal */
+.successIcon {
+  font-size: 3rem;
+  margin-bottom: 0.2rem;
+  text-align: center;
+}
+
+.orderNumber {
+  color: #38bdf8;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 1.2rem;
+  text-align: center;
+}
+
+.timeRangeBox {
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+  text-align: left;
+}
+
+.timeIcon {
+  font-size: 1.8rem;
+}
+
+.timeLabel {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.timeValue {
+  font-size: 0.95rem;
+  color: #f1f5f9;
+  margin: 0.2rem 0 0 0;
+  line-height: 1.4;
+}
+
+.orderDetails {
+  background: #0f172a;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.orderDetails h4 {
+  margin: 0 0 0.8rem 0;
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  border-bottom: 1px solid #1e293b;
+  padding-bottom: 0.5rem;
+}
+
+.itemsList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.8rem 0;
+  max-height: 140px;
+  overflow-y: auto;
+}
+
+.itemsList li {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin-bottom: 0.4rem;
+  color: #cbd5e1;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 0.95rem;
+  border-top: 1px solid #334155;
+  padding-top: 0.6rem;
+  color: #38bdf8;
+}
+
+.emptyCategoryMessage {
+  color: #94a3b8;
+  font-style: italic;
+  margin: 0;
+}
+
+.errorBannerContainer {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.4);
+  margin: 0.5rem 0;
+}
+
+.errorBannerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.errorBannerContent {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.errorCloseBtn {
+  font-size: 1rem;
+  color: #fca5a5;
+}
+
+.fixedTimeBanner {
+  background-color: rgba(249, 115, 22, 0.1);
+  border-color: #f97316;
+  text-align: center;
+  margin: 0.5rem 0;
+}
+
+.fixedTimeText {
+  margin: 0;
+  color: #f97316;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.pickupSlotContainer {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.4rem;
+}
+
+.pickupSlotLabel {
+  color: #f97316;
+}
