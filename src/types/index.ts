@@ -1,5 +1,6 @@
 // Ruoli del sistema RBAC
-export type UserRole = 'cliente' | 'gestore' | 'pizzaiolo' | 'admin';
+ 
+export type UserRole = 'cliente' | 'gestore' | 'pizzaiolo' | 'admin' | 'corriere' | 'cameriere';
 
 // Ingrediente (gestito dal Gestore o Admin)
 export interface Ingredient {
@@ -27,16 +28,24 @@ export interface CartItem {
   customIngredients?: Ingredient[]; // Modifiche agli ingredienti
   notes?: string; // Es. "senza cipolla"
 }
-
-// Stati dell'ordine per il KDS (Pizzaiolo) e il Cliente
-export type OrderStatus = 'In Attesa' | 'In Preparazione' | 'In Forno' | 'Pronto';
+ 
+// Stati dell'ordine standardizzati in tutto il sistema
+export type OrderStatus = 'pending' | 'preparing' | 'baking' | 'ready' | 'delivering' | 'completed';
+ 
 
 // Modello dell'Ordine
 export interface Order {
-  id: number;
-  customer_name: string;
-  items: CartItem[];
-  status: OrderStatus;
-  total_price: number;
-  created_at: string;
+  id: string | number;
+  customerName?: string;
+  customer_name?: string;
+  items: CartItem[] | any[];
+  status: OrderStatus | string;
+  totalPrice?: number;
+  total_price?: number;
+  created_at?: string;
+  pickupTime?: string;
+  orderType?: string;
+  tableNumber?: number | null;
+  deliveryAddress?: string | null;
+  covers?: number | null;
 }

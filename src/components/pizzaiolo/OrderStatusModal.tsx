@@ -3,7 +3,7 @@ import styles from './Pizzaiolo.module.css';
 
 interface Props {
   isOpen: boolean;
-  targetStatus: 'baking' | 'ready' | null;
+  targetStatus: 'baking' | 'ready' |'delivering'| 'completed' | null;
   onClose: () => void;
   onConfirm: () => void;
 }

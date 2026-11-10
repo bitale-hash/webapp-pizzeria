@@ -8,7 +8,7 @@ import styles from './page.module.css';
 
 import PizzaioloHeader from '../../components/pizzaiolo/PizzaioloHeader';
 import DepartmentFilterBar from '../../components/pizzaiolo/DepartmentFilterBar';
-import OrderCard from '../../components/pizzaiolo/OrderCard';
+import OrderCard from '../../components/OrderCard';
 import OrderStatusModal from '../../components/pizzaiolo/OrderStatusModal';
 
 const getStableColorForOrder = (id: string) => {
@@ -29,7 +29,7 @@ export default function PizzaioloPage() {
   const [confirmModal, setConfirmModal] = useState<{
     isOpen: boolean;
     orderId: string | null;
-    targetStatus: 'baking' | 'ready' | null;
+    targetStatus: 'baking' | 'ready' | 'completed' | null;
   }>({ isOpen: false, orderId: null, targetStatus: null });
 
   const prevPendingCount = useRef<number>(0);
@@ -93,18 +93,39 @@ export default function PizzaioloPage() {
   };
 
   const handleAdvanceClick = (id: string, currentStatus: string) => {
+    console.log("🔥 CLICK RICEVUTO! ID:", id, "Stato attuale:", currentStatus);
+
+    const order = orders.find(o => o.id === id);
+
     if (currentStatus === 'pending') {
-      advanceOrderStatus(id);
+      advanceOrderStatus(id, 'preparing');
     } else if (currentStatus === 'preparing') {
       setConfirmModal({ isOpen: true, orderId: id, targetStatus: 'baking' });
     } else if (currentStatus === 'baking') {
-      setConfirmModal({ isOpen: true, orderId: id, targetStatus: 'ready' });
+      const deliveryAddr = (order as any)?.deliveryAddress;
+      const tableNum = (order as any)?.tableNumber;
+
+      const hasDestination = Boolean(
+        (deliveryAddr && typeof deliveryAddr === 'string' && deliveryAddr.trim() !== '') || 
+        (tableNum !== null && tableNum !== undefined && String(tableNum).trim() !== '')
+      );
+
+      if (hasDestination) {
+        // Se ha un tavolo o un indirizzo, passa a 'ready' per corriere/cameriere
+        setConfirmModal({ isOpen: true, orderId: id, targetStatus: 'ready' });
+      } else {
+        // Se è da bancone/asporto locale senza destinazione, va direttamente a 'completed'
+        setConfirmModal({ isOpen: true, orderId: id, targetStatus: 'completed' });
+      }
+    } else if (currentStatus === 'ready') {
+      // 🚀 Gestione mancante: se l'ordine è 'ready' e il pizzaiolo lo clicca, lo archiviamo come completato
+      advanceOrderStatus(id, 'completed' as any);
     }
   };
-
+   
   const handleConfirmAction = () => {
-    if (confirmModal.orderId) {
-      advanceOrderStatus(confirmModal.orderId);
+    if (confirmModal.orderId && confirmModal.targetStatus) {
+      advanceOrderStatus(confirmModal.orderId, confirmModal.targetStatus);
     }
     setConfirmModal({ isOpen: false, orderId: null, targetStatus: null });
   };
@@ -131,19 +152,20 @@ export default function PizzaioloPage() {
   };
 
   const sortedOrders = useMemo(() => {
-    let list = [...orders];
-    if (selectedDepartmentFilter !== 'all') {
-      list = list.filter(order => order.items && order.items.some((item: any) => itemBelongsToDepartment(item, selectedDepartmentFilter)));
-    }
-    return list.sort((a, b) => {
-      const isPriorityA = a.status === 'preparing' || a.status === 'baking';
-      const isPriorityB = b.status === 'preparing' || b.status === 'baking';
-      if (isPriorityA && !isPriorityB) return -1;
-      if (!isPriorityA && isPriorityB) return 1;
-      if (!a.pickupTime) return 1;
-      if (!b.pickupTime) return -1;
-      return a.pickupTime.localeCompare(b.pickupTime);
-    });
+      let list = orders.filter(order => order.status !== 'ready' && order.status !== 'delivering' && order.status !== 'completed');
+
+      if (selectedDepartmentFilter !== 'all') {
+        list = list.filter(order => order.items && order.items.some((item: any) => itemBelongsToDepartment(item, selectedDepartmentFilter)));
+      }
+      return list.sort((a, b) => {
+        const isPriorityA = a.status === 'preparing' || a.status === 'baking';
+        const isPriorityB = b.status === 'preparing' || b.status === 'baking';
+        if (isPriorityA && !isPriorityB) return -1;
+        if (!isPriorityA && isPriorityB) return 1;
+        if (!a.pickupTime) return 1;
+        if (!b.pickupTime) return -1;
+        return a.pickupTime.localeCompare(b.pickupTime);
+      });
   }, [orders, selectedDepartmentFilter, categories, menu]);
 
   const renderOrderNumberOnly = (rawId: string) => {
@@ -180,12 +202,10 @@ export default function PizzaioloPage() {
       const quantity = item.quantity || 1;
       let text = `${quantity}x ${productName}`;
 
-      // Gestione flessibile degli extra (sia 'selectedExtras' che 'extras')
       const rawExtras = item.selectedExtras || item.extras;
       try {
         let extras = rawExtras;
         if (typeof extras === 'string' && extras.trim() !== '') {
-          // Prova a vedere se è un JSON o una stringa separata da virgole
           if (extras.startsWith('[') || extras.startsWith('{')) {
             extras = JSON.parse(extras);
           }
@@ -203,7 +223,6 @@ export default function PizzaioloPage() {
         }
       }
 
-      // Gestione delle note
       if (item.notes && item.notes.trim() !== '') {
         text += ` [Note: ${item.notes}]`;
       }

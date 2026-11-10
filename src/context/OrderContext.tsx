@@ -1,3 +1,4 @@
+// src/context/OrderContext.tsx
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
@@ -5,11 +6,15 @@ import React, { createContext, useContext, useState, useEffect, useCallback } fr
 export interface KdsOrder {
   id: string; 
   customerName: string;
-  items: string[];
-  status: 'pending' | 'preparing' | 'baking' | 'ready';
+  items: any[];
+  status: 'pending' | 'preparing' | 'baking' | 'ready' | 'delivering' | 'completed';
   time: string;
   totalPrice: number;
-  pickupTime: string; 
+  pickupTime: string;
+  orderType?: 'counter' | 'table' | 'delivery' | 'pickup';
+  tableNumber?: number | null;
+  deliveryAddress?: string | null;
+  covers?: number | null;
 }
 
 export interface OvenCapacity {
@@ -26,7 +31,7 @@ interface OrderContextType {
   setCompletedOrders: React.Dispatch<React.SetStateAction<KdsOrder[]>>;
   advanceOrderStatus: (id: string, targetStatus?: KdsOrder['status']) => Promise<void>;
   generateDailyOrderId: () => string;
-  fetchOrders: () => Promise<void>; // 🚀 Esportato per permettere il re-fetch immediato
+  fetchOrders: () => Promise<void>;
 }
 
 const OrderContext = createContext<OrderContextType | undefined>(undefined);
@@ -35,20 +40,21 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
   const [orders, setOrders] = useState<KdsOrder[]>([]);
   const [completedOrders, setCompletedOrders] = useState<KdsOrder[]>([]);
   
-  // Configurazione forni inizializzata dinamicamente
   const [ovensConfig, setOvensConfig] = useState<OvenCapacity[]>([
     { id: 'oven_1', name: 'Forno 1', capacity: 10 }
   ]);
 
-  // 🚀 Funzione centralizzata per recuperare gli ordini aggiornati dal DB
+  // 🚀 Recupera gli ordini dal DB e li smista in base a 'completed'
   const fetchOrders = useCallback(async () => {
     try {
       const res = await fetch('/api/orders');
       const data = await res.json();
       if (data.success && data.orders) {
+        // Ordini in lavorazione/attivi (tutti tranne 'completed')
+        const active = data.orders.filter((o: KdsOrder) => o.status !== 'completed');
+        // Storico ordini conclusi ('completed')
+        const completed = data.orders.filter((o: KdsOrder) => o.status === 'completed');
         
-        const active = data.orders.filter((o: KdsOrder) => o.status !== 'ready');
-        const completed = data.orders.filter((o: KdsOrder) => o.status === 'ready');
         setOrders(active);
         setCompletedOrders(completed);
       }
@@ -57,9 +63,7 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, []);
 
-  // Caricamento iniziale degli ordini e delle impostazioni dal database
   useEffect(() => {
-    // Caricamento settings e forni
     fetch('/api/settings')
       .then(res => res.json())
       .then(data => {
@@ -84,7 +88,6 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
       })
       .catch(err => console.error("Errore caricamento forni nel contesto ordini:", err));
 
-    // Caricamento iniziale ordini
     fetchOrders();
   }, [fetchOrders]);
 
@@ -117,13 +120,31 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
 
     let nextStatus: KdsOrder['status'] = targetStatus || orderToUpdate.status;
 
+    // Logica automatica di avanzamento in base allo stato attuale e al tipo di ordine
     if (!targetStatus) {
-      if (orderToUpdate.status === 'pending') nextStatus = 'preparing';
-      else if (orderToUpdate.status === 'preparing') nextStatus = 'baking';
-      else if (orderToUpdate.status === 'baking') nextStatus = 'ready';
+      if (orderToUpdate.status === 'pending') {
+        nextStatus = 'preparing';
+      } else if (orderToUpdate.status === 'preparing') {
+        nextStatus = 'baking';
+      } else if (orderToUpdate.status === 'baking') {
+        // Se è un ordine da cassa va direttamente a completed, altrimenti a ready per corriere/sala
+        if (orderToUpdate.orderType === 'counter' || orderToUpdate.orderType === 'pickup') {
+          nextStatus = 'completed';
+        } else {
+          nextStatus = 'ready';
+        }
+      } else if (orderToUpdate.status === 'ready') {
+        if (orderToUpdate.orderType === 'delivery') {
+          nextStatus = 'delivering';
+        } else if (orderToUpdate.orderType === 'table') {
+          nextStatus = 'completed';
+        }
+      } else if (orderToUpdate.status === 'delivering') {
+        nextStatus = 'completed';
+      }
     }
 
-    // Aggiornamento sul backend tramite API
+    // Aggiornamento sul backend tramite API PATCH
     try {
       const res = await fetch(`/api/orders/${id}`, {
         method: 'PATCH',
@@ -141,9 +162,9 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
       return;
     }
 
-    // Aggiornamento dello stato locale dopo la conferma del DB
-    if (nextStatus === 'ready') {
-      const finishedOrder = { ...orderToUpdate, status: 'ready' as const };
+    // Se l'ordine raggiunge lo stato 'completed', viene spostato nello storico
+    if (nextStatus === 'completed') {
+      const finishedOrder = { ...orderToUpdate, status: 'completed' as const };
       setCompletedOrders(prevCompleted => [finishedOrder, ...prevCompleted.filter(o => o.id !== id)]);
       setOrders(prevOrders => prevOrders.filter(o => o.id !== id));
     } else {
@@ -162,7 +183,7 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
       setCompletedOrders,
       advanceOrderStatus,
       generateDailyOrderId,
-      fetchOrders // 🚀 Fornito nell'interfaccia
+      fetchOrders
     }}>
       {children}
     </OrderContext.Provider>

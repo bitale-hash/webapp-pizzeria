@@ -1,6 +1,6 @@
 'use client';
-
-import React from 'react';
+ 
+ 
 import { useAuth } from '../context/AuthContext';
 import { useRouter } from 'next/navigation';
 import { UserRole } from '../types';
@@ -23,6 +23,10 @@ export default function Navbar() {
       router.push('/client');
     } else if (user.role === 'gestore') {
       router.push('/gestore');
+    } else if (user.role === 'corriere') {
+      router.push('/corriere');
+    } else if (user.role === 'cameriere') {
+      router.push('/cameriere');
     } else {
       router.push('/'); // Fallback generale per altri ruoli
     }
@@ -50,6 +54,12 @@ export default function Navbar() {
           <button className={styles.devRoleBtn} onClick={() => handleRoleSwitch('pizzaiolo', '/pizzaiolo')}>
             PIZZAIOLO
           </button>
+          <button className={styles.devRoleBtn} onClick={() => handleRoleSwitch('corriere', '/corriere')}>
+            CORRIERE
+          </button>
+          <button className={styles.devRoleBtn} onClick={() => handleRoleSwitch('cameriere', '/cameriere')}>
+            CAMERIERE
+          </button>
           <button className={styles.devRoleBtn} onClick={() => handleRoleSwitch('gestore', '/gestore')}>
             GESTORE
           </button>
@@ -63,7 +73,7 @@ export default function Navbar() {
       <div className={styles.mainNav}>
         {/* Lato Sinistro: Logo e Link dinamici */}
         <div className={styles.navLeftGroup}>
-          {(user?.role !== 'admin' && user?.role !== 'pizzaiolo') && (
+          {(user?.role !== 'admin' && user?.role !== 'pizzaiolo' && user?.role !== 'corriere' && user?.role !== 'cameriere') && (
             <span 
               className={styles.logoText} 
               onClick={handleLogoClick}
@@ -128,6 +138,30 @@ export default function Navbar() {
             </>
           )}
 
+          {/* LINK PER IL CORRIERE */}
+          {user?.role === 'corriere' && (
+            <>
+              <button 
+                className={styles.navLinkBtn}
+                onClick={() => router.push('/corriere')}
+              >
+                Dashboard Consegne (Rider)
+              </button>
+            </>
+          )}
+
+          {/* LINK PER IL CAMERIERE */}
+          {user?.role === 'cameriere' && (
+            <>
+              <button 
+                className={styles.navLinkBtn}
+                onClick={() => router.push('/cameriere')}
+              >
+                Dashboard Sala (Tavoli)
+              </button>
+            </>
+          )}
+
           {/* LINK PER L'ADMIN */}
           {user?.role === 'admin' && (
             <>
@@ -152,7 +186,7 @@ export default function Navbar() {
             </>
           )}
         </div>
-      </div>       
+      </div>      
     </header>
   );
 }
